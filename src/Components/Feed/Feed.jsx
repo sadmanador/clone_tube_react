@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Feed.css";
 import thumbnail1 from "../../assets/thumbnail1.png";
 import thumbnail2 from "../../assets/thumbnail2.png";
@@ -9,202 +9,50 @@ import thumbnail6 from "../../assets/thumbnail6.png";
 import thumbnail7 from "../../assets/thumbnail7.png";
 import thumbnail8 from "../../assets/thumbnail8.png";
 import { Link } from "react-router-dom";
+import { API_KEY } from "../../data";
 
-const Feed = () => {
+const Feed = ({ category }) => {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const videoList_url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&maxResults=50&videoCategoryId=${category}&key=${API_KEY}`;
+      const response = await fetch(videoList_url);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch videos.");
+      }
+
+      const result = await response.json();
+      setData(result.items || []);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [category]);
+
+  console.log(data[0]);
+
   return (
     <div className="feed">
-      <Link to={`video/20/12`} className="card">
-        <img src={thumbnail1} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </Link>
-      <div className="card">
-        <img src={thumbnail2} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail3} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail4} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail5} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail6} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail7} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail8} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail1} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail2} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail3} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail4} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail5} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail6} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail7} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail8} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail1} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail2} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail3} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail4} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail5} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail6} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail7} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
-      <div className="card">
-        <img src={thumbnail8} alt="" />
-        <h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit, id.
-        </h2>
-        <h3>MrBeast</h3>
-        <p>15k views &bull; 2 days ago</p>
-      </div>
+      {data.map((item, index) => {
+        return (
+          <Link
+            key={index}
+            to={`video/${item.snippet.categoryId}/${item.id}`}
+            className="card"
+          >
+            <img src={item.snippet.thumbnails.medium.url} alt="" />
+            <h2>{item.snippet.title}</h2>
+            <h3>{item.snippet.channelTitle}</h3>
+            <p>{item.statistics.viewCount} views &bull; 2 days ago</p>
+          </Link>
+        );
+      })}
     </div>
   );
 };
