@@ -6,4 +6,9 @@
     flex-wrap: wrap;
 }
 
-
+@media (max-width: 900px){
+    .play-container{
+        padding-left: 5%;
+        padding-left: 5%;
+    }
+}
