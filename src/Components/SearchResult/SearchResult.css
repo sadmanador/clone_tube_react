@@ -1,0 +1,19 @@
+.video-item{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+    gap: 12px;
+}
+
+.video-item .thumbnail{
+    width: 500px;
+    height: 281px;
+    border-radius: 5px;
+}
+
+@media(max-width:900px){
+    .video-item{
+        flex-direction: column;
+        justify-content: center;
+    }
+}
